@@ -2,17 +2,37 @@
   <img src="https://img.shields.io/badge/node-%3E%3D12-brightgreen" alt="Node >=12">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT">
   <img src="https://img.shields.io/badge/dependencies-0-success" alt="Zero dependencies">
+  <img src="https://img.shields.io/badge/version-1.0.0-2396EF" alt="Version 1.0.0">
 </p>
 
 # claude-code-statusline
 
 A zero-dependency Node.js custom statusline for [Claude Code](https://code.claude.com/). Shows model info, context usage, token progress, and time-of-day in a clean three-line display.
 
+### Preview
+
+**Clean start** — fresh session, no balance configured
 ```
-Claude 3.5 Sonnet ⚡medium │ 📊 ~12K/200K (6%) │ 🪙 18.7K tok
-⏰ ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱  75.02%  ⏱️ 1h23m
-📊 ▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱  6.00%  💰 ¥128.45
+deepseek-v4-flash ⚡default │ 📊 ~10.0K/200.0K (5%) │ 🪙 8.0K tok
+⏰ ▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱  49.10%  ⏱️ 2min
+📊 ▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱   5.00%
 ```
+
+**Heavy session** — deep context, high effort, mid balance
+```
+anthropic/claude-sonnet-4.6 ⚡high │ 📊 ~144.0K/200.0K (72%) │ 🪙 144.0K tok
+⏰ ▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱  49.10%  ⏱️ 1h30m
+📊 ▰▰▰▰▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱  72.00%  💰 ¥45.20
+```
+
+**Empty account** — balance depleted alert
+```
+deepseek-v4-flash ⚡medium │ 📊 ~36.0K/200.0K (18%) │ 🪙 36.0K tok
+⏰ ▰▰▰▰▰▰▰▰▰▰▱▱▱▱▱▱▱▱▱▱  49.10%  ⏱️ 1h0m
+📊 ▰▰▰▰▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱▱  18.00%  🔴 ¥0.00
+```
+
+> The time-of-day bars read 49% because these were rendered at one moment. In practice, the bar transitions through cyan (morning) → green → yellow → orange (evening).
 
 **Line 1** — Model name, effort level, context window usage, total session tokens  
 **Line 2** — Time-of-day progress bar (cyan → green → yellow → orange) and session duration  
@@ -72,7 +92,7 @@ Add the following to your `~/.claude/settings.json`:
 }
 ```
 
-Restart Claude Code. The new statusline appears at the bottom of the terminal.
+Restart Claude Code. The new statusline appears at the bottom of the terminal. If nothing shows, verify Node.js is in your PATH and the file path in `settings.json` is correct.
 
 ### Optional: DeepSeek balance
 
