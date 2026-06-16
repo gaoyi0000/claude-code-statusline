@@ -35,7 +35,10 @@ function getDeepSeekBalance() {
   try {
     if (existsSync(CACHE_FILE)) {
       const cache = JSON.parse(readFileSync(CACHE_FILE, 'utf8'));
-      if (Date.now() - cache.ts < CACHE_TTL) {
+      const age = Date.now() - cache.ts;
+      // Reject timestamps in the future or before 2025
+      if (age < -60000 || cache.ts < 1735689600000) { throw 'stale'; }
+      if (age < CACHE_TTL) {
         return cache.data;
       }
     }

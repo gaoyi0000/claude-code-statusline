@@ -80,6 +80,11 @@ git clone https://github.com/gaoyi0000/claude-code-statusline.git
 copy-item claude-code-statusline\statusline.js "$env:USERPROFILE\.claude\"
 ```
 
+> **Windows users:** If the statusline doesn't appear after configuration, check
+> that `%USERPROFILE%\.claude.json` exists and contains `"hasTrustDialogAccepted": true`.
+> Some Windows versions require this workspace-trust flag before statusLine commands
+> will execute. See [issue #31670](https://github.com/anthropics/claude-code/issues/31670).
+
 ### Configure Claude Code
 
 Add the following to your `~/.claude/settings.json`:
