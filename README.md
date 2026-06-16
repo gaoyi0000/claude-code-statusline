@@ -75,15 +75,18 @@ cp claude-code-statusline/statusline.js ~/.claude/
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/gaoyi0000/claude-code-statusline/main/statusline.js" `
   -OutFile "$env:USERPROFILE\.claude\statusline.js"
 
+# If curl reports a certificate revocation error, add --ssl-no-revoke:
+# curl.exe -o "$env:USERPROFILE\.claude\statusline.js" --ssl-no-revoke https://raw.githubusercontent.com/gaoyi0000/claude-code-statusline/main/statusline.js
+
 # Option B — Clone the repo
 git clone https://github.com/gaoyi0000/claude-code-statusline.git
 copy-item claude-code-statusline\statusline.js "$env:USERPROFILE\.claude\"
 ```
 
-> **Windows users:** If the statusline doesn't appear after configuration, check
-> that `%USERPROFILE%\.claude.json` exists and contains `"hasTrustDialogAccepted": true`.
-> Some Windows versions require this workspace-trust flag before statusLine commands
-> will execute. See [issue #31670](https://github.com/anthropics/claude-code/issues/31670).
+> **Windows users:** Use **forward slashes** in the `statusLine.command` path.
+> CC may execute the command via Git Bash, where backslashes (`\\`) are interpreted
+> as escape sequences, corrupting the path. Write `node C:/Users/.../statusline.js`
+> instead of `node C:\\Users\\...\\statusline.js`.
 
 ### Configure Claude Code
 
@@ -97,6 +100,19 @@ Add the following to your `~/.claude/settings.json`:
 }
 ```
 
+On Windows, use the full path with forward slashes and include the `type` field:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "node C:/Users/USERNAME/.claude/statusline.js"
+  }
+}
+```
+
+Replace `USERNAME` with your Windows username.
+
 Restart Claude Code. The new statusline appears at the bottom of the terminal. If nothing shows, verify Node.js is in your PATH and the file path in `settings.json` is correct.
 
 ### Optional: DeepSeek balance
@@ -107,7 +123,7 @@ To show your DeepSeek API balance on line 3, set the `DEEPSEEK_API_KEY` environm
 export DEEPSEEK_API_KEY="sk-your-key-here"
 ```
 
-Add it to `~/.bashrc` or `~/.zshrc` for persistence. If not set, the balance section is silently skipped.
+Add it to `~/.bashrc` or `~/.zshrc` for persistence (Linux/macOS). On Windows, use `setx DEEPSEEK_API_KEY "***"` in PowerShell or set it as a system environment variable. If not set, the balance section is silently skipped.
 
 ---
 
