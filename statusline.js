@@ -47,7 +47,7 @@ function getDeepSeekBalance() {
   // Fetch from DeepSeek
   try {
     const raw = execSync(
-      `curl -s --max-time 5 -H "Authorization: Bearer ${apiKey}" https://api.deepseek.com/user/balance`,
+      `curl -s --ssl-no-revoke --max-time 5 -H "Authorization: Bearer ${apiKey}" https://api.deepseek.com/user/balance`,
       { timeout: 6000, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
     );
     const data = JSON.parse(raw);
